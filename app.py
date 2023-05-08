@@ -31,6 +31,8 @@ def recommend_ui():
 @app.route("/recommend_books", methods=["post"])
 def recommend():
     user_input = request.form.get("user_input")
+    if not user_input:
+        raise ValueError("Enter the Book Name")
     index = np.where(pt.index == user_input)[0][0]
     similar_item = sorted(
         list(enumerate(similarity_score[index])), key=lambda x: x[1], reverse=True
